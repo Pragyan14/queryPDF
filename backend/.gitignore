@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env
+*.env
+
+# FastAPI / Uvicorn logs
+*.log
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# Jupyter and IPython
+.ipynb_checkpoints
+.ipython/
+
+# Uploaded files, indexes, and storage
+app/storage/pdfs/
+app/storage/indexes/
+app/storage/texts/
+
+# Model checkpoints or Hugging Face caches (optional)
+*.ckpt
+*.pt
+*.bin
+*.h5
+huggingface_cache/
