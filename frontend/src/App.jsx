@@ -1,8 +1,10 @@
+import { Button } from '@mantine/core';
+
 function App() {
 
   return (
     <>
-      <h1 className="text-7xl text-red-900">QueryPDF</h1>
+      <Button variant="filled" size='xl'>Button</Button>
     </>
   )
 }
