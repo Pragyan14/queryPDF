@@ -1,0 +1,54 @@
+import { create } from 'zustand';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+
+const useChatStore = create((set) => ({
+  messages: [],
+  isLoading: false,
+  error: null,
+  pdfId: null, // set this when uploading the PDF
+
+  setPdfId: (id) => set({ pdfId: id }),
+
+  askQuestion: async (question) => {
+    set((state) => ({
+      isLoading: true,
+      error: null,
+      messages: [
+        ...state.messages,
+        {
+          id: uuidv4(),
+          type: 'user',
+          content: question,
+          timestamp: new Date(),
+        },
+      ],
+    }));
+
+    try {
+      const { pdfId } = useChatStore.getState();
+      const res = await axios.post('http://localhost:8000/ask-question', {
+        pdf_id: pdfId,
+        question,
+      });
+
+      set((state) => ({
+        isLoading: false,
+        messages: [
+          ...state.messages,
+          {
+            id: uuidv4(),
+            type: 'bot',
+            content: res.data.answer,
+            timestamp: new Date(),
+          },
+        ],
+      }));
+    } catch (err) {
+      set({
+        isLoading: false,
+        error: err.response?.data?.detail || 'Something went wrong',
+      });
+    }
+  },
+}));
